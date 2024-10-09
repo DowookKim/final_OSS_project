@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import convert from "xml-js"; // xml-js를 사용
 import './BookList.css'; // 추가한 CSS 파일 import
 import AddressForm from './AddressForm'; // AddressForm import
+import CartAlert from './CartAlert'; // CartAlert import
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 상태 관리
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // 주소 입력 팝업 상태
+  const [isAlertOpen, setIsAlertOpen] = useState(false); // 장바구니 알림 상태
   const [selectedBook, setSelectedBook] = useState(null); // 선택한 책 정보
 
   useEffect(() => {
@@ -27,12 +29,20 @@ const BookList = () => {
 
   const handleBuyClick = (book) => {
     setSelectedBook(book); // 선택한 책 정보 저장
-    setIsPopupOpen(true); // 팝업 열기
+    setIsPopupOpen(true); // 주소 입력 팝업 열기
+  };
+
+  const handleCartClick = () => {
+    setIsAlertOpen(true); // 장바구니 알림 팝업 열기
   };
 
   const handlePopupClose = () => {
-    setIsPopupOpen(false); // 팝업 닫기
+    setIsPopupOpen(false); // 주소 입력 팝업 닫기
     setSelectedBook(null); // 선택한 책 정보 초기화
+  };
+
+  const handleAlertClose = () => {
+    setIsAlertOpen(false); // 장바구니 알림 팝업 닫기
   };
 
   const handleAddressSubmit = (data) => {
@@ -44,6 +54,9 @@ const BookList = () => {
     <div className="book-list-container">
       {isPopupOpen && (
         <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
+      )}
+      {isAlertOpen && (
+        <CartAlert message="장바구니에 추가되었습니다." onClose={handleAlertClose} />
       )}
 
       {books.map((book, index) => (
@@ -60,7 +73,7 @@ const BookList = () => {
             <p className="book-mileage">마일리지: {book.mileage?._text}점</p>
           </div>
           <div className="book-actions">
-            <button className="btn-cart">장바구니</button>
+            <button className="btn-cart" onClick={handleCartClick}>장바구니</button>
             <button className="btn-buy" onClick={() => handleBuyClick(book)}>바로구매</button>
           </div>
         </div>
