@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Loader from '../Common/Loader';
 import './Book.css';
-import Footer from '../Pages/Footer';
 
 const CreateBook = () => {
     const navigate = useNavigate();
@@ -88,7 +87,7 @@ const CreateBook = () => {
                 </div>
                 <button type="submit" className="btn btn-primary submit-btn">Submit</button>
             </form>
-            <Footer />
+
         </div>
     )
 }
