@@ -1,71 +1,53 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import convert from "xml-js"; // xml-js를 사용
+import './BookList.css'; // 추가한 CSS 파일 import
 
-const Carasol = () => {
+const BookList = () => {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get(
+          "https://cors-anywhere.herokuapp.com/http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbsk10314030926001&QueryType=ItemNewAll&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101"
+        );
+
+        // xml-js를 사용하여 XML 데이터를 JSON으로 변환
+        const result = convert.xml2js(response.data, { compact: true, spaces: 2 });
+        const items = result?.object?.item || [];
+        setBooks(items);
+      } catch (error) {
+        console.error("Error fetching books", error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
   return (
-    <>
-      <div id="demo" className="carousel slide" data-bs-ride="carousel">
-        <div className="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#demo"
-            data-bs-slide-to="0"
-            className="active"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#demo"
-            data-bs-slide-to="1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#demo"
-            data-bs-slide-to="2"
-          ></button>
-        </div>
-
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              src={'https://www.w3schools.com/bootstrap5/la.jpg'}
-              alt="Los Angeles"
-              className="d-block"
-            />
+    <div className="book-list-container">
+      {books.map((book, index) => (
+        <div key={index} className="book-item">
+          <img src={book.cover?._text} alt={book.title?._text} className="book-cover" />
+          <div className="book-info">
+            <h3 className="book-title">{book.title?._text}</h3>
+            <p className="book-author">저자: {book.author?._text}</p>
+            <p className="book-publisher">출판사: {book.publisher?._text}</p>
+            <p className="book-pubDate">출판일: {book.pubDate?._text}</p>
+            <p className="book-price">
+              판매가: {book.priceSales?._text}원 / 정가: {book.priceStandard?._text}원
+            </p>
+            <p className="book-mileage">마일리지: {book.mileage?._text}점</p>
           </div>
-          <div className="carousel-item">
-            <img
-              src={'https://www.w3schools.com/bootstrap5/ny.jpg'}
-              alt="Chicago"
-              className="d-block"
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src={'https://www.w3schools.com/bootstrap5/chicago.jpg'}
-              alt="New York"
-              className="d-block"
-            />
+          <div className="book-actions">
+            <button className="btn-cart">장바구니</button>
+            <button className="btn-buy">바로구매</button>
           </div>
         </div>
-
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#demo"
-          data-bs-slide="prev"
-        >
-          <span className="carousel-control-prev-icon"></span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#demo"
-          data-bs-slide="next"
-        >
-          <span className="carousel-control-next-icon"></span>
-        </button>
-      </div>
-    </>
+      ))}
+    </div>
   );
 };
 
-export default Carasol;
+export default BookList;

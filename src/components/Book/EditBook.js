@@ -13,13 +13,13 @@ const EditBook = () => {
 
   useEffect(() => {
     getBook();
-  }, []);
+  },[]);
 
   const getBook = () => {
     axios
       .get(getBookApi.concat("/") + id)
       .then((item) => {
-        setUser(item.data);
+        setBook(item.data);
       })
       .catch((err) => {
         console.log(err);
@@ -51,7 +51,7 @@ const EditBook = () => {
       })
       .then((data) => {
         setIsLoading(true);
-        navigate("/show-user");
+        navigate("/show-book");
       })
       .catch((error) => {
         setError(error.message);

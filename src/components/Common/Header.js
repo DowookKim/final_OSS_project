@@ -1,43 +1,59 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Common.css";
+import { Menu as MenuIcon } from "@mui/icons-material";
+import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+
 export default function Header() {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <div>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div className="container-fluid">
-          <Link to="/" className="navbar-brand" href="#">
-            <span className="navbar-text">React CRUD</span>
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mynavbar"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="mynavbar">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="create-user">
-                  Create User
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="show-user">
-                  Show User
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleMenuOpen}>
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component={RouterLink} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
+          Book System
+        </Typography>
+        <Button color="inherit" component={RouterLink} to="/">
+          Best seller
+        </Button>
+        <Button color="inherit" component={RouterLink} to="/create-book">
+          Create Book
+        </Button>
+        <Button color="inherit" component={RouterLink} to="/show-book">
+          Show Book
+        </Button>
+      </Toolbar>
+
+      {/* Mobile Menu */}
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        keepMounted
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem component={RouterLink} to="/" onClick={handleMenuClose}>
+          Best seller
+        </MenuItem>
+        <MenuItem component={RouterLink} to="/create-book" onClick={handleMenuClose}>
+          Create Book
+        </MenuItem>
+        <MenuItem component={RouterLink} to="/show-book" onClick={handleMenuClose}>
+          Show Book
+        </MenuItem>
+      </Menu>
+    </AppBar>
   );
 }

@@ -9,7 +9,7 @@ const EditBook = () => {
 
   useEffect(() => {
     getBook();
-  }, []);
+  });
 
   const getBook = () => {
     axios
@@ -25,13 +25,7 @@ const EditBook = () => {
   return (
     <div className="user mt-5">
       <table className="table table-bordered">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        
-      </tr>
-    </thead>
+
     <tbody>
       <tr>
         <td>Book Name</td>

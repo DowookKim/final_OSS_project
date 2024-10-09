@@ -19,12 +19,12 @@ const CreateBook = () => {
         event.preventDefault();
         const { name, value } = event.target;
         console.log(name, value)
-        setUser({ ...book, [name]: value });
+        setBook({ ...book, [name]: value });
     }
 
     const handelSubmit = async (event) => {
         event.preventDefault();
-        console.log(user)
+        console.log(book)
         try {
             setIsLoading(true);
             const response = await fetch(createBookApi, {
@@ -78,7 +78,7 @@ const CreateBook = () => {
                 </div>
                 <div className="mb-3">
                     <label for="price" className="form-label">Price</label>
-                    <input type="text" className="form-control" id="price" name="price" value={book.price} onChange={handelInput} />
+                    <input type="number" className="form-control" id="price" name="price" value={book.price} onChange={handelInput} />
                 </div>
                 <div className="mb-3">
                     <label for="message" className="form-label">Rental status</label>
