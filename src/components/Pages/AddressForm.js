@@ -54,8 +54,8 @@ const AddressForm = ({ onClose, onSubmit }) => {
               placeholderText="날짜 선택"
             />
           </div>
-          <button type="submit" className="btn btn-primary">제출</button>
-          <button type="button" className="btn btn-secondary" onClick={onClose}>취소</button>
+          <button type="submit" className="btn btn-primary">구매</button>
+          <button type="button" className="btn btn-secondary" onClick={onClose}>구매취소</button>
         </form>
       </div>
     </div>

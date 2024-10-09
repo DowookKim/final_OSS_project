@@ -36,5 +36,24 @@
   
   .form-label {
     font-weight: bold; /* 레이블 볼드체 */
+    font-size: 0.9rem; /* 레이블 글씨 크기 조정 */
+  }
+  
+  input {
+    font-size: 0.9rem; /* 입력 필드 글씨 크기 조정 */
+    font-weight: 300; /* 입력 필드 글씨 굵기 조정 */
+    padding: 0.5rem; /* 입력 필드 여백 */
+    border-radius: 4px; /* 입력 필드 모서리 둥글게 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    transition: border-color 0.3s; /* 테두리 색상 전환 효과 */
+  }
+  
+  input:focus {
+    border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
+    outline: none; /* 기본 테두리 아웃라인 제거 */
+  }
+  
+  input::placeholder {
+    color: #aaa; /* 플레이스홀더 텍스트 색상 */
   }
   
