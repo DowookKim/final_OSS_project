@@ -13,7 +13,7 @@ const EditBook = () => {
 
   useEffect(() => {
     getBook();
-  },[]);
+  },[id]);
 
   const getBook = () => {
     axios
