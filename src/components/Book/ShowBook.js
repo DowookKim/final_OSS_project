@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../Common/Loader";
 import './ShowBook.css'; // Radix의 스타일을 따로 적용하기 위해 CSS 파일 생성
+import Footer from '../Pages/Footer';
 
 const ShowBook = () => {
   const showBookApi = "https://66ff38182b9aac9c997e8ef9.mockapi.io/api/oss/books";
@@ -168,6 +169,7 @@ const ShowBook = () => {
           })}
         </tbody>
       </table>
+      <Footer />
     </div>
   );
 };
