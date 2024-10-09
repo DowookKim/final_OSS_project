@@ -4,6 +4,7 @@ import convert from "xml-js"; // xml-js를 사용
 import './BookList.css'; // 추가한 CSS 파일 import
 import AddressForm from './AddressForm'; // AddressForm import
 import CartAlert from './CartAlert'; // CartAlert import
+import Footer from './Footer';
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -78,6 +79,7 @@ const BookList = () => {
           </div>
         </div>
       ))}
+      <Footer />
     </div>
   );
 };
