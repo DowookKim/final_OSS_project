@@ -1,0 +1,7 @@
+[build]
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/fetchBooks"
+  to = "/.netlify/functions/fetchBooks"
+  status = 200

@@ -9,9 +9,8 @@ const BookList = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(
-          "https://cors-anywhere.herokuapp.com/http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbsk10314030926001&QueryType=ItemNewAll&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101"
-        );
+        // Netlify 서버리스 함수로 요청
+        const response = await axios.get('/api/fetchBooks');
 
         // xml-js를 사용하여 XML 데이터를 JSON으로 변환
         const result = convert.xml2js(response.data, { compact: true, spaces: 2 });
@@ -21,6 +20,7 @@ const BookList = () => {
         console.error("Error fetching books", error);
       }
     };
+
 
     fetchBooks();
   }, []);
