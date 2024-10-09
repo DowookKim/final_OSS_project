@@ -36,8 +36,8 @@ const BookList = () => {
   };
 
   const handleAddressSubmit = (data) => {
-    console.log("주소 제출:", data, "선택한 책:", selectedBook);
-    // 여기에서 API 호출이나 추가 로직을 구현할 수 있습니다.
+    console.log("주소 및 카드 정보 제출:", data, "선택한 책:", selectedBook);
+    // 여기에 API 호출이나 추가 로직을 구현할 수 있습니다.
   };
 
   return (
