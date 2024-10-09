@@ -73,7 +73,7 @@ const CreateBook = () => {
                     <input type="text" className="form-control" id="puname" name="puname" value={book.puname} onChange={handelInput} />
                 </div>
                 <div className="mb-3">
-                    <label for="byname" className="form-label">Wirter</label>
+                    <label for="byname" className="form-label">Writer</label>
                     <input type="text" className="form-control" id="byname" name="byname" value={book.byname} onChange={handelInput} />
                 </div>
                 <div className="mb-3">

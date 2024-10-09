@@ -2,16 +2,18 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import convert from "xml-js"; // xml-js를 사용
 import './BookList.css'; // 추가한 CSS 파일 import
+import AddressForm from './AddressForm'; // AddressForm import
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 상태 관리
+  const [selectedBook, setSelectedBook] = useState(null); // 선택한 책 정보
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         // Netlify 서버리스 함수로 요청
         const response = await axios.get('/api/fetchBooks');
-
         // xml-js를 사용하여 XML 데이터를 JSON으로 변환
         const result = convert.xml2js(response.data, { compact: true, spaces: 2 });
         const items = result?.object?.item || [];
@@ -20,13 +22,30 @@ const BookList = () => {
         console.error("Error fetching books", error);
       }
     };
-
-
     fetchBooks();
   }, []);
 
+  const handleBuyClick = (book) => {
+    setSelectedBook(book); // 선택한 책 정보 저장
+    setIsPopupOpen(true); // 팝업 열기
+  };
+
+  const handlePopupClose = () => {
+    setIsPopupOpen(false); // 팝업 닫기
+    setSelectedBook(null); // 선택한 책 정보 초기화
+  };
+
+  const handleAddressSubmit = (data) => {
+    console.log("주소 제출:", data, "선택한 책:", selectedBook);
+    // 여기에서 API 호출이나 추가 로직을 구현할 수 있습니다.
+  };
+
   return (
     <div className="book-list-container">
+      {isPopupOpen && (
+        <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
+      )}
+
       {books.map((book, index) => (
         <div key={index} className="book-item">
           <img src={book.cover?._text} alt={book.title?._text} className="book-cover" />
@@ -42,7 +61,7 @@ const BookList = () => {
           </div>
           <div className="book-actions">
             <button className="btn-cart">장바구니</button>
-            <button className="btn-buy">바로구매</button>
+            <button className="btn-buy" onClick={() => handleBuyClick(book)}>바로구매</button>
           </div>
         </div>
       ))}
