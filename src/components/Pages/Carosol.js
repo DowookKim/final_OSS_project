@@ -1,16 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import convert from "xml-js"; 
-import './BookList.css'; 
-import AddressForm from './AddressForm'; 
-import CartAlert from './CartAlert'; 
+import convert from "xml-js";
+import './BookList.css';
+import AddressForm from './AddressForm';
+import CartAlert from './CartAlert';
 import Footer from './Footer';
 
 const BookList = ({ cartItems, setCartItems }) => { // Accept cart state as props
   const [books, setBooks] = useState([]);
-  const [isPopupOpen, setIsPopupOpen] = useState(false); 
-  const [isAlertOpen, setIsAlertOpen] = useState(false); 
-  const [selectedBook, setSelectedBook] = useState(null); 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -27,23 +27,25 @@ const BookList = ({ cartItems, setCartItems }) => { // Accept cart state as prop
   }, []);
 
   const handleBuyClick = (book) => {
-    setSelectedBook(book); 
-    setIsPopupOpen(true); 
+    setSelectedBook(book);
+    setIsPopupOpen(true);
   };
 
   const handleCartClick = (book) => {
-    console.log("Adding to cart:", book); // Debugging line
-    setCartItems((prevItems) => [...prevItems, book]); // Use functional update to avoid async issues
-    setIsAlertOpen(true); 
+    setCartItems((prevItems) => [...prevItems, book]); // Update cart
+    setIsAlertOpen(true); // Show alert
+    setIsPopupOpen(true); // Open popup (if needed)
   };
+  
+
 
   const handlePopupClose = () => {
-    setIsPopupOpen(false); 
-    setSelectedBook(null); 
+    setIsPopupOpen(false);
+    setSelectedBook(null);
   };
 
   const handleAlertClose = () => {
-    setIsAlertOpen(false); 
+    setIsAlertOpen(false);
   };
 
   const handleAddressSubmit = (data) => {
