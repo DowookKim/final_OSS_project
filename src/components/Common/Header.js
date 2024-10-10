@@ -32,6 +32,9 @@ export default function Header() {
         <Button color="inherit" component={RouterLink} to="/show-book">
           Show Book
         </Button>
+        <Button color="inherit" component={RouterLink} to="/cart">
+          Cart
+        </Button> {/* Add Cart menu */}
       </Toolbar>
 
       {/* Mobile Menu */}
@@ -52,6 +55,9 @@ export default function Header() {
         </MenuItem>
         <MenuItem component={RouterLink} to="/show-book" onClick={handleMenuClose}>
           Show Book
+        </MenuItem>
+        <MenuItem component={RouterLink} to="/cart" onClick={handleMenuClose}>
+          Cart
         </MenuItem>
       </Menu>
     </AppBar>
