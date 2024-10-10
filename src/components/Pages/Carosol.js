@@ -6,7 +6,7 @@ import AddressForm from './AddressForm';
 import CartAlert from './CartAlert';
 import Footer from './Footer';
 
-const BookList = ({ cartItems, setCartItems }) => { // Accept cart state as props
+const BookList = ({ cartItems, setCartItems }) => {
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -32,9 +32,9 @@ const BookList = ({ cartItems, setCartItems }) => { // Accept cart state as prop
   };
 
   const handleCartClick = (book) => {
-    setCartItems((prevItems) => [...prevItems, book]); // Update cart
-    setIsAlertOpen(true); // Show alert
-    setIsPopupOpen(true); // Open popup (if needed)
+    setCartItems((prevItems) => [...prevItems, book]);
+    setIsAlertOpen(true);
+    setIsPopupOpen(true);
   };
   
 
