@@ -7,6 +7,7 @@ import ShowBook from "./components/Book/ShowBook";
 import Header from "./components/Common/Header";
 import Home from "./components/Layout/Home";
 import Cart from "./components/Pages/Cart";
+import BookList from "./components/Pages/Carosol";
 import { useState } from "react";
 
 function App() {
@@ -23,7 +24,11 @@ function App() {
             <Route path="/book/:id" element={<Book />} />
             <Route path="/create-book" element={<CreateBook />} />
             <Route path="/show-book" element={<ShowBook />} />
-            <Route path="/cart" element={<Cart cartItems={cartItems} />} /> {/* Add Cart route */}
+            <Route 
+              path="/booklist" 
+              element={<BookList cartItems={cartItems} setCartItems={setCartItems} />} 
+            /> {/* Pass cart state to BookList */}
+            <Route path="/cart" element={<Cart cartItems={cartItems} />} /> {/* Pass cart items */}
           </Routes>
         </div>
       </header>
