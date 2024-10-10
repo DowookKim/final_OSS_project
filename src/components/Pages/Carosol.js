@@ -32,7 +32,8 @@ const BookList = ({ cartItems, setCartItems }) => { // Accept cart state as prop
   };
 
   const handleCartClick = (book) => {
-    setCartItems([...cartItems, book]); // Update cart state with selected book
+    console.log("Adding to cart:", book); // Debugging line
+    setCartItems((prevItems) => [...prevItems, book]); // Use functional update to avoid async issues
     setIsAlertOpen(true); 
   };
 

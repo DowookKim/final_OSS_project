@@ -2,6 +2,8 @@ import React from "react";
 import './Cart.css';
 
 const Cart = ({ cartItems }) => {
+  console.log("Cart items:", cartItems); // Debugging line
+
   return (
     <div className="cart-container">
       <h2>Cart</h2>
