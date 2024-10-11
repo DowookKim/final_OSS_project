@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import convert from "xml-js";
 import './BookList.css';
+import AddressForm from './AddressForm';
 import CartAlert from './CartAlert';
 import Footer from './Footer';
 
-const BookList = ({ cartItems, setCartItems }) => {  // Props로 cartItems와 setCartItems 받기
-  const [books, setBooks] = useState([]);  // 도서 목록 상태
-  const [isAlertOpen, setIsAlertOpen] = useState(false);  // 알림창 상태
-  const [selectedBook, setSelectedBook] = useState(null);  // 바로 구매할 때 선택된 책 상태
-  const [isPopupOpen, setIsPopupOpen] = useState(false);  // 바로 구매할 때 팝업 상태
+const BookList = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [books, setBooks] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);  // 알림창 상태 관리
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('/api/fetchBooks');  // 서버에서 책 목록 가져오기
+        const response = await axios.get('/api/fetchBooks');
         const result = convert.xml2js(response.data, { compact: true, spaces: 2 });
-        const items = result?.object?.item || [];  // XML 데이터를 파싱해 books 상태에 저장
+        const items = result?.object?.item || [];
         setBooks(items);
       } catch (error) {
         console.error("Error fetching books", error);
@@ -25,40 +27,43 @@ const BookList = ({ cartItems, setCartItems }) => {  // Props로 cartItems와 se
     fetchBooks();
   }, []);
 
-  // 장바구니에 책 추가
+  const handleBuyClick = (book) => {
+    setSelectedBook(book);
+    setIsPopupOpen(true);
+  };
+
   const handleCartClick = (book) => {
+    console.log("Before adding to cart:", cartItems); 
     setCartItems((prevItems) => {
-      const updatedCart = [...prevItems, book];  // 기존 장바구니 항목에 새 책 추가
+      const updatedCart = [...prevItems, book];
+      console.log("Updated cart:", updatedCart); 
       return updatedCart;
     });
-    setIsAlertOpen(true);  // 장바구니 추가 후 알림창 열기
+    setIsAlertOpen(true);  // 장바구니 알림창 열기
   };
 
-  // 바로구매 버튼 클릭 시 호출
-  const handleBuyClick = (book) => {
-    setSelectedBook(book);  // 선택한 책을 상태에 저장
-    setIsPopupOpen(true);  // 바로 구매 팝업 열기
-  };
-
-  // 팝업 닫기
   const handlePopupClose = () => {
-    setIsPopupOpen(false);  // 팝업 닫기
-    setSelectedBook(null);  // 선택된 책 초기화
+    setIsPopupOpen(false);
+    setSelectedBook(null);
   };
 
-  // 알림창 닫기 함수
   const handleAlertClose = () => {
-    setIsAlertOpen(false);  // 알림창 닫기
+    setIsAlertOpen(false);  // 장바구니 알림창 닫기
+  };
+
+  const handleAddressSubmit = (data) => {
+    console.log("주소 및 카드 정보 제출:", data, "선택한 책:", selectedBook);
   };
 
   return (
     <div className="book-list-container">
-      {/* 장바구니에 추가되었다는 알림창 */}
+      {isPopupOpen && (
+        <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
+      )}
       {isAlertOpen && (
         <CartAlert message="장바구니에 추가되었습니다." onClose={handleAlertClose} />
       )}
 
-      {/* 도서 목록 출력 */}
       {books.map((book, index) => (
         <div key={index} className="book-item">
           <img src={book.cover?._text} alt={book.title?._text} className="book-cover" />
@@ -73,9 +78,7 @@ const BookList = ({ cartItems, setCartItems }) => {  // Props로 cartItems와 se
             <p className="book-mileage">마일리지: {book.mileage?._text}점</p>
           </div>
           <div className="book-actions">
-            {/* 장바구니 버튼 */}
             <button className="btn-cart" onClick={() => handleCartClick(book)}>장바구니</button>
-            {/* 바로구매 버튼 추가 */}
             <button className="btn-buy" onClick={() => handleBuyClick(book)}>바로구매</button>
           </div>
         </div>
