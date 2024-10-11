@@ -6,7 +6,8 @@ import AddressForm from './AddressForm';
 import CartAlert from './CartAlert';
 import Footer from './Footer';
 
-const BookList = ({ cartItems, setCartItems }) => {
+const BookList = () => {
+  const [cartItems, setCartItems] = useState([]);
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
