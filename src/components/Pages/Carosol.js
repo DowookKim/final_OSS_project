@@ -32,19 +32,17 @@ const BookList = ({ cartItems, setCartItems }) => {
   };
 
   const handleCartClick = (book) => {
-    console.log("Before adding to cart (cartItems):", cartItems);  // Debugging line
-
     // Check if the book is already in the cart
     const isInCart = cartItems.some((cartItem) => cartItem.title?._text === book.title?._text);
     if (isInCart) {
       console.log("This book is already in the cart.");
     } else {
       setCartItems((prevItems) => {
-        const updatedCart = [...prevItems, book];
-        console.log("Updated cart:", updatedCart);  // Debugging line to check updated cart
-        return updatedCart;
+        // Debugging line
+        console.log("Adding to cart:", book); 
+        return [...prevItems, book];
       });
-      setIsAlertOpen(true);  // Show cart alert
+      setIsAlertOpen(true); // Show cart alert
     }
   };
 
@@ -54,7 +52,7 @@ const BookList = ({ cartItems, setCartItems }) => {
   };
 
   const handleAlertClose = () => {
-    setIsAlertOpen(false);  // Close the cart alert
+    setIsAlertOpen(false); // Close the cart alert
   };
 
   const handleAddressSubmit = (data) => {
