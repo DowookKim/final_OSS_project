@@ -64,10 +64,10 @@ const BookList = ({ cartItems, setCartItems }) => {
 
   return (
     <div className="book-list-container">
-      {isPopupOpen && (
+      {isAlertOpen && (
         <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
       )}
-      {isAlertOpen && (
+      {isPopupOpen && (
         <CartAlert message="Added to cart." onClose={handleAlertClose} />
       )}
 
