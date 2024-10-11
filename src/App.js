@@ -7,7 +7,7 @@ import ShowBook from "./components/Book/ShowBook";
 import Header from "./components/Common/Header";
 import Home from "./components/Layout/Home";
 import Cart from "./components/Pages/Cart";
-import BookList from "./components/Pages/Carosol"; // Ensure this path is correct
+import BookList from "./components/Pages/Carosol"; // Ensure this is the correct import for your BookList component
 import { useState } from "react";
 
 function App() {
@@ -16,21 +16,19 @@ function App() {
   return (
     <div className="App">
       <header className="container">
-        <div className="">
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/edit-book/:id" element={<EditBook />} />
-            <Route path="/book/:id" element={<Book />} />
-            <Route path="/create-book" element={<CreateBook />} />
-            <Route path="/show-book" element={<ShowBook />} />
-            <Route 
-              path="/booklist" 
-              element={<BookList cartItems={cartItems} setCartItems={setCartItems} />} 
-            /> {/* Pass cart state to BookList */}
-            <Route path="/cart" element={<Cart cartItems={cartItems} />} /> {/* Pass cart items */}
-          </Routes>
-        </div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/edit-book/:id" element={<EditBook />} />
+          <Route path="/book/:id" element={<Book />} />
+          <Route path="/create-book" element={<CreateBook />} />
+          <Route path="/show-book" element={<ShowBook />} />
+          <Route 
+            path="/booklist" 
+            element={<BookList cartItems={cartItems} setCartItems={setCartItems} />} 
+          /> {/* Pass cart state to BookList */}
+          <Route path="/cart" element={<Cart cartItems={cartItems} />} /> {/* Pass cart items */}
+        </Routes>
       </header>
     </div>
   );

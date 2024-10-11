@@ -32,6 +32,7 @@ const BookList = ({ cartItems, setCartItems }) => {
   };
 
   const handleCartClick = (book) => {
+    // Check if cartItems is an array and is defined
     if (Array.isArray(cartItems)) {
       const isInCart = cartItems.some((cartItem) => cartItem.title?._text === book.title?._text);
       if (isInCart) {
@@ -39,7 +40,7 @@ const BookList = ({ cartItems, setCartItems }) => {
       } else {
         setCartItems((prevItems) => {
           console.log("Adding to cart:", book); 
-          return [...prevItems, book];
+          return [...prevItems, book]; // Add book to cart
         });
         setIsAlertOpen(true); // Show cart alert
       }
@@ -47,7 +48,6 @@ const BookList = ({ cartItems, setCartItems }) => {
       console.error("cartItems is not an array or is undefined!");
     }
   };
-  
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
@@ -55,11 +55,11 @@ const BookList = ({ cartItems, setCartItems }) => {
   };
 
   const handleAlertClose = () => {
-    setIsAlertOpen(false); // Close the cart alert
+    setIsAlertOpen(false);  // Close cart alert
   };
 
   const handleAddressSubmit = (data) => {
-    console.log("Address and card info submitted:", data, "Selected book:", selectedBook);
+    console.log("Address and card information submitted:", data, "Selected book:", selectedBook);
   };
 
   return (
@@ -78,11 +78,11 @@ const BookList = ({ cartItems, setCartItems }) => {
             <h3 className="book-title">{book.title?._text}</h3>
             <p className="book-author">Author: {book.author?._text}</p>
             <p className="book-publisher">Publisher: {book.publisher?._text}</p>
-            <p className="book-pubDate">Published Date: {book.pubDate?._text}</p>
+            <p className="book-pubDate">Publication Date: {book.pubDate?._text}</p>
             <p className="book-price">
-              Sale Price: {book.priceSales?._text}원 / Standard Price: {book.priceStandard?._text}원
+              Sale Price: {book.priceSales?._text} / Original Price: {book.priceStandard?._text}
             </p>
-            <p className="book-mileage">Mileage: {book.mileage?._text} points</p>
+            <p className="book-mileage">Mileage: {book.mileage?._text}</p>
           </div>
           <div className="book-actions">
             <button className="btn-cart" onClick={() => handleCartClick(book)}>Add to Cart</button>

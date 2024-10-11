@@ -24,7 +24,7 @@ export default function Header() {
           Book System
         </Typography>
         <Button color="inherit" component={RouterLink} to="/">
-          Best Seller
+          Best seller
         </Button>
         <Button color="inherit" component={RouterLink} to="/create-book">
           Create Book
@@ -48,7 +48,7 @@ export default function Header() {
         onClose={handleMenuClose}
       >
         <MenuItem component={RouterLink} to="/" onClick={handleMenuClose}>
-          Best Seller
+          Best seller
         </MenuItem>
         <MenuItem component={RouterLink} to="/create-book" onClick={handleMenuClose}>
           Create Book
