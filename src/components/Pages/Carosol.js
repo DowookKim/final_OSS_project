@@ -6,11 +6,10 @@ import AddressForm from './AddressForm';
 import CartAlert from './CartAlert';
 import Footer from './Footer';
 
-const BookList = () => {
-  const [cartItems, setCartItems] = useState([]);
+const BookList = ({ cartItems, setCartItems }) => {  // Use props passed from App.js
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);  // 알림창 상태 관리
+  const [isAlertOpen, setIsAlertOpen] = useState(false);  
   const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const BookList = () => {
       console.log("Updated cart:", updatedCart); 
       return updatedCart;
     });
-    setIsAlertOpen(true);  // 장바구니 알림창 열기
+    setIsAlertOpen(true);  // Show cart alert
   };
 
   const handlePopupClose = () => {
@@ -48,11 +47,11 @@ const BookList = () => {
   };
 
   const handleAlertClose = () => {
-    setIsAlertOpen(false);  // 장바구니 알림창 닫기
+    setIsAlertOpen(false);  // Close alert
   };
 
   const handleAddressSubmit = (data) => {
-    console.log("주소 및 카드 정보 제출:", data, "선택한 책:", selectedBook);
+    console.log("Address and payment info submitted:", data, "Selected book:", selectedBook);
   };
 
   return (
@@ -61,7 +60,7 @@ const BookList = () => {
         <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
       )}
       {isAlertOpen && (
-        <CartAlert message="장바구니에 추가되었습니다." onClose={handleAlertClose} />
+        <CartAlert message="Added to cart." onClose={handleAlertClose} />
       )}
 
       {books.map((book, index) => (
@@ -69,17 +68,17 @@ const BookList = () => {
           <img src={book.cover?._text} alt={book.title?._text} className="book-cover" />
           <div className="book-info">
             <h3 className="book-title">{book.title?._text}</h3>
-            <p className="book-author">저자: {book.author?._text}</p>
-            <p className="book-publisher">출판사: {book.publisher?._text}</p>
-            <p className="book-pubDate">출판일: {book.pubDate?._text}</p>
+            <p className="book-author">Author: {book.author?._text}</p>
+            <p className="book-publisher">Publisher: {book.publisher?._text}</p>
+            <p className="book-pubDate">Published: {book.pubDate?._text}</p>
             <p className="book-price">
-              판매가: {book.priceSales?._text}원 / 정가: {book.priceStandard?._text}원
+              Sale price: {book.priceSales?._text}원 / Regular price: {book.priceStandard?._text}원
             </p>
-            <p className="book-mileage">마일리지: {book.mileage?._text}점</p>
+            <p className="book-mileage">Mileage: {book.mileage?._text}점</p>
           </div>
           <div className="book-actions">
-            <button className="btn-cart" onClick={() => handleCartClick(book)}>장바구니</button>
-            <button className="btn-buy" onClick={() => handleBuyClick(book)}>바로구매</button>
+            <button className="btn-cart" onClick={() => handleCartClick(book)}>Add to Cart</button>
+            <button className="btn-buy" onClick={() => handleBuyClick(book)}>Buy Now</button>
           </div>
         </div>
       ))}

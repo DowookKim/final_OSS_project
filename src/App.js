@@ -7,7 +7,7 @@ import ShowBook from "./components/Book/ShowBook";
 import Header from "./components/Common/Header";
 import Home from "./components/Layout/Home";
 import Cart from "./components/Pages/Cart";
-import BookList from "./components/Pages/Carosol";
+import BookList from "./components/Pages/Carosol"; // Make sure this is correctly imported
 import { useState } from "react";
 
 function App() {
