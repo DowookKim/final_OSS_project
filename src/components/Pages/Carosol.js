@@ -32,9 +32,13 @@ const BookList = ({ cartItems, setCartItems }) => {
   };
 
   const handleCartClick = (book) => {
-    setCartItems((prevItems) => [...prevItems, book]);
-    setIsAlertOpen(true);
-    setIsPopupOpen(true);
+    console.log("Before adding to cart:", cartItems); 
+    setCartItems((prevItems) => {
+      const updatedCart = [...prevItems, book];
+      console.log("Updated cart:", updatedCart); 
+      return updatedCart;
+    });
+    setIsPopupOpen(true); 
   };
   
 
