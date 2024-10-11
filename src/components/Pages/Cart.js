@@ -13,8 +13,8 @@ const Cart = ({ cartItems }) => {
             <img src={book.cover?._text} alt={book.title?._text} className="cart-book-cover" />
             <div className="cart-book-info">
               <h3>{book.title?._text}</h3>
-              <p>저자: {book.author?._text}</p>
-              <p>가격: {book.priceSales?._text}원</p>
+              <p>Author: {book.author?._text}</p>
+              <p>Price: {book.priceSales?._text}원</p>
             </div>
           </div>
         ))

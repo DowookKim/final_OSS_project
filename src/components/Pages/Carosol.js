@@ -6,10 +6,10 @@ import AddressForm from './AddressForm';
 import CartAlert from './CartAlert';
 import Footer from './Footer';
 
-const BookList = ({ cartItems, setCartItems }) => {  // Use props passed from App.js
+const BookList = ({ cartItems, setCartItems }) => {
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);  
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const BookList = ({ cartItems, setCartItems }) => {  // Use props passed from Ap
     console.log("Before adding to cart (cartItems):", cartItems);  // Debugging line
 
     // Check if the book is already in the cart
-    const isInCart = cartItems.some((cartItem) => cartItem._text === book._text);
+    const isInCart = cartItems.some((cartItem) => cartItem.title?._text === book.title?._text);
     if (isInCart) {
       console.log("This book is already in the cart.");
     } else {
@@ -54,11 +54,11 @@ const BookList = ({ cartItems, setCartItems }) => {  // Use props passed from Ap
   };
 
   const handleAlertClose = () => {
-    setIsAlertOpen(false);  // Close alert
+    setIsAlertOpen(false);  // Close the cart alert
   };
 
   const handleAddressSubmit = (data) => {
-    console.log("Address and payment info submitted:", data, "Selected book:", selectedBook);
+    console.log("Address and card info submitted:", data, "Selected book:", selectedBook);
   };
 
   return (
@@ -77,11 +77,11 @@ const BookList = ({ cartItems, setCartItems }) => {  // Use props passed from Ap
             <h3 className="book-title">{book.title?._text}</h3>
             <p className="book-author">Author: {book.author?._text}</p>
             <p className="book-publisher">Publisher: {book.publisher?._text}</p>
-            <p className="book-pubDate">Published: {book.pubDate?._text}</p>
+            <p className="book-pubDate">Published Date: {book.pubDate?._text}</p>
             <p className="book-price">
-              Sale price: {book.priceSales?._text}원 / Regular price: {book.priceStandard?._text}원
+              Sale Price: {book.priceSales?._text}원 / Standard Price: {book.priceStandard?._text}원
             </p>
-            <p className="book-mileage">Mileage: {book.mileage?._text}점</p>
+            <p className="book-mileage">Mileage: {book.mileage?._text} points</p>
           </div>
           <div className="book-actions">
             <button className="btn-cart" onClick={() => handleCartClick(book)}>Add to Cart</button>
