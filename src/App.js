@@ -7,7 +7,7 @@ import ShowBook from "./components/Book/ShowBook";
 import Header from "./components/Common/Header";
 import Home from "./components/Layout/Home";
 import Cart from "./components/Pages/Cart";  // Cart 컴포넌트 불러오기
-import BookList from "./components/Pages/BookList";  // BookList 컴포넌트 불러오기
+import BookList from "./components/Pages/Carosol";
 import { useState } from "react";
 
 function App() {
