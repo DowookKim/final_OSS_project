@@ -6,12 +6,12 @@ import EditBook from "./components/Book/EditBook";
 import ShowBook from "./components/Book/ShowBook";
 import Header from "./components/Common/Header";
 import Home from "./components/Layout/Home";
-import Cart from "./components/Pages/Cart";
-import BookList from "./components/Pages/Carosol";
+import Cart from "./components/Pages/Cart";  // Cart 컴포넌트 불러오기
+import BookList from "./components/Pages/BookList";  // BookList 컴포넌트 불러오기
 import { useState } from "react";
 
 function App() {
-  const [cartItems, setCartItems] = useState([]); // State to store cart items
+  const [cartItems, setCartItems] = useState([]); // 장바구니 상태
 
   return (
     <div className="App">
@@ -24,11 +24,16 @@ function App() {
             <Route path="/book/:id" element={<Book />} />
             <Route path="/create-book" element={<CreateBook />} />
             <Route path="/show-book" element={<ShowBook />} />
+            {/* 장바구니 상태를 BookList에 전달 */}
             <Route 
               path="/booklist" 
               element={<BookList cartItems={cartItems} setCartItems={setCartItems} />} 
-            /> {/* Pass cart state to BookList */}
-            <Route path="/cart" element={<Cart cartItems={cartItems} />} /> {/* Pass cart items */}
+            />
+            {/* 장바구니 상태를 Cart에 전달 */}
+            <Route 
+              path="/cart" 
+              element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} 
+            />
           </Routes>
         </div>
       </header>
