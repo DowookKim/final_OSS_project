@@ -62,7 +62,7 @@ const BookList = () => {
       {isPopupOpen && (
         <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
       )}
-      {isAlertOpen && (
+      {isPopupOpen  && (
         <CartAlert message="장바구니에 추가되었습니다." onClose={handleAlertClose} />
       )}
 
