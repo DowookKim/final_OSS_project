@@ -59,7 +59,7 @@ const BookList = () => {
 
   return (
     <div className="book-list-container">
-      {isPopupOpen && (
+      {isAlertOpen && (
         <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
       )}
       {isPopupOpen  && (
