@@ -32,19 +32,22 @@ const BookList = ({ cartItems, setCartItems }) => {
   };
 
   const handleCartClick = (book) => {
-    // Check if the book is already in the cart
-    const isInCart = cartItems.some((cartItem) => cartItem.title?._text === book.title?._text);
-    if (isInCart) {
-      console.log("This book is already in the cart.");
+    if (Array.isArray(cartItems)) {
+      const isInCart = cartItems.some((cartItem) => cartItem.title?._text === book.title?._text);
+      if (isInCart) {
+        console.log("This book is already in the cart.");
+      } else {
+        setCartItems((prevItems) => {
+          console.log("Adding to cart:", book); 
+          return [...prevItems, book];
+        });
+        setIsAlertOpen(true); // Show cart alert
+      }
     } else {
-      setCartItems((prevItems) => {
-        // Debugging line
-        console.log("Adding to cart:", book); 
-        return [...prevItems, book];
-      });
-      setIsAlertOpen(true); // Show cart alert
+      console.error("cartItems is not an array or is undefined!");
     }
   };
+  
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
