@@ -10,7 +10,7 @@ const BookList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);  // 알림창 상태 관리
   const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
@@ -39,10 +39,8 @@ const BookList = () => {
       console.log("Updated cart:", updatedCart); 
       return updatedCart;
     });
-    setIsPopupOpen(true); 
+    setIsAlertOpen(true);  // 장바구니 알림창 열기
   };
-  
-
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
@@ -50,7 +48,7 @@ const BookList = () => {
   };
 
   const handleAlertClose = () => {
-    setIsAlertOpen(false);
+    setIsAlertOpen(false);  // 장바구니 알림창 닫기
   };
 
   const handleAddressSubmit = (data) => {
@@ -59,10 +57,10 @@ const BookList = () => {
 
   return (
     <div className="book-list-container">
-      {isAlertOpen && (
+      {isPopupOpen && (
         <AddressForm onClose={handlePopupClose} onSubmit={handleAddressSubmit} />
       )}
-      {isPopupOpen  && (
+      {isAlertOpen && (
         <CartAlert message="장바구니에 추가되었습니다." onClose={handleAlertClose} />
       )}
 
