@@ -32,13 +32,20 @@ const BookList = ({ cartItems, setCartItems }) => {  // Use props passed from Ap
   };
 
   const handleCartClick = (book) => {
-    console.log("Before adding to cart:", cartItems); 
-    setCartItems((prevItems) => {
-      const updatedCart = [...prevItems, book];
-      console.log("Updated cart:", updatedCart); 
-      return updatedCart;
-    });
-    setIsAlertOpen(true);  // Show cart alert
+    console.log("Before adding to cart (cartItems):", cartItems);  // Debugging line
+
+    // Check if the book is already in the cart
+    const isInCart = cartItems.some((cartItem) => cartItem._text === book._text);
+    if (isInCart) {
+      console.log("This book is already in the cart.");
+    } else {
+      setCartItems((prevItems) => {
+        const updatedCart = [...prevItems, book];
+        console.log("Updated cart:", updatedCart);  // Debugging line to check updated cart
+        return updatedCart;
+      });
+      setIsAlertOpen(true);  // Show cart alert
+    }
   };
 
   const handlePopupClose = () => {
