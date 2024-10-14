@@ -7,7 +7,8 @@ import CartAlert from './CartAlert';
 import Footer from './Footer';
 
 const BookList = ({ cartItems, setCartItems }) => {
-  console.log("Received cartItems in BookList:", cartItems);
+  console.log("Received cartItems in BookList:", cartItems); // cartItems 확인
+  console.log("Received setCartItems in BookList:", setCartItems); // setCartItems 확인
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
