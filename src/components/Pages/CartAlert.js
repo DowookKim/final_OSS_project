@@ -6,7 +6,9 @@ const CartAlert = ({ message, onClose }) => {
     <div className="cart-alert-overlay">
       <div className="cart-alert-content">
         <p>{message}</p>
-        <button className="btn btn-primary" onClick={onClose}>Close</button>
+        <button className="btn btn-primary cart-alert-button" onClick={onClose}>
+          Close
+        </button>
       </div>
     </div>
   );
