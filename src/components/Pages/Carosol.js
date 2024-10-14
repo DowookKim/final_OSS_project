@@ -6,7 +6,7 @@ import AddressForm from './AddressForm';
 import CartAlert from './CartAlert';
 import Footer from './Footer';
 
-const BookList = ({ cartItems, setCartItems }) => {
+function BookList({ cartItems = [], setCartItems = () => {} }) {//const BookList = ({ cartItems, setCartItems }) => {
   console.log("Received cartItems in BookList:", cartItems); // cartItems 확인
   console.log("Received setCartItems in BookList:", setCartItems); // setCartItems 확인
   const [books, setBooks] = useState([]);
