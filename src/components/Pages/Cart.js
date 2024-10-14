@@ -1,3 +1,6 @@
+import React from "react";
+import './Cart.css';
+
 const Cart = ({ cartItems }) => {
   console.log("Cart items:", cartItems); // 장바구니 항목 확인 로그
 
@@ -21,3 +24,6 @@ const Cart = ({ cartItems }) => {
     </div>
   );
 };
+
+
+export default Cart;
