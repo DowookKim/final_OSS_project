@@ -1,4 +1,3 @@
-import * as Dialog from '@radix-ui/react-dialog';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -18,6 +17,8 @@ const ShowBook = () => {
   const [sortOrder, setSortOrder] = useState("asc");
 
   const handelDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this book?")) return;
+
     setIsLoading(true);
     try {
       const response = await fetch(`${showBookApi}/${id}`, { method: "DELETE" });
@@ -115,29 +116,11 @@ const ShowBook = () => {
                   <Tooltip.Content>View Book</Tooltip.Content>
                 </Tooltip.Root>
 
-                <Dialog.Root>
-                  <Dialog.Trigger asChild>
-                    <i className="fa fa-trash-o action-icon" aria-hidden="true"></i>
-                  </Dialog.Trigger>
-                  <Dialog.Portal>
-                    <Dialog.Overlay className="dialog-overlay" />
-                    <Dialog.Content className="dialog-content">
-                      <Dialog.Title>Confirm Delete</Dialog.Title>
-                      <Dialog.Description>
-                        Are you sure you want to delete this book? This action is irreversible.
-                      </Dialog.Description>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handelDelete(item.id)}
-                      >
-                        Confirm
-                      </button>
-                      <Dialog.Close asChild>
-                        <button className="btn btn-secondary">Cancel</button>
-                      </Dialog.Close>
-                    </Dialog.Content>
-                  </Dialog.Portal>
-                </Dialog.Root>
+                <i
+                  className="fa fa-trash-o action-icon"
+                  aria-hidden="true"
+                  onClick={() => handelDelete(item.id)}
+                ></i>
               </Tooltip.Provider>
             </div>
           </div>
