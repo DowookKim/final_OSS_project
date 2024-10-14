@@ -5,7 +5,8 @@ import './Book.css';
 
 const CreateBook = () => {
     const navigate = useNavigate();
-    const createBookApi = "https://66ff38182b9aac9c997e8ef9.mockapi.io/api/oss/books"
+    const createBookApi = "https://66ff38182b9aac9c997e8ef9.mockapi.io/api/oss/books";
+
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [book, setBook] = useState({
@@ -14,82 +15,116 @@ const CreateBook = () => {
         byname: "",
         price: "",
         message: true,
-    })
+    });
 
-    const handelInput = (event) => {
-        event.preventDefault();
+    const handleInput = (event) => {
         const { name, value } = event.target;
-        console.log(name, value)
         setBook({ ...book, [name]: value });
-    }
+    };
 
-    const handelSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(book)
+        setIsLoading(true);
         try {
-            setIsLoading(true);
             const response = await fetch(createBookApi, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(book),
             });
 
             if (response.ok) {
-                console.log('Form submitted successfully!');
                 setBook({
                     name: "",
                     puname: "",
                     byname: "",
                     price: "",
                     message: true,
-                })
+                });
                 navigate('/show-book');
             } else {
-                console.error('Form submission failed!');
+                setError('Form submission failed!');
             }
-
         } catch (error) {
             setError(error.message);
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     return (
-        <div className='user-form'>
-            <div className='heading'>
+        <div className="form-container">
+            <div className="form-card">
+                <h2>Create Book</h2>
                 {isLoading && <Loader />}
-                {error && <p>Error: {error}</p>}
-                <p>Book Form</p>
+                {error && <div className="error-message">Error: {error}</div>}
+                
+                <form onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label htmlFor="name">Book Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={book.name}
+                            onChange={handleInput}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="puname">Publishing Name</label>
+                        <input
+                            type="text"
+                            id="puname"
+                            name="puname"
+                            value={book.puname}
+                            onChange={handleInput}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="byname">Writer</label>
+                        <input
+                            type="text"
+                            id="byname"
+                            name="byname"
+                            value={book.byname}
+                            onChange={handleInput}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="price">Price</label>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            value={book.price}
+                            onChange={handleInput}
+                            required
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="message">Rental Status</label>
+                        <select
+                            id="message"
+                            name="message"
+                            value={book.message}
+                            onChange={handleInput}
+                        >
+                            <option value="true">Available</option>
+                            <option value="false">Not Available</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" className="btn-submit">Submit</button>
+                </form>
             </div>
-            <form onSubmit={handelSubmit}>
-                <div className="mb-3">
-                    <label for="name" className="form-label">Name</label>
-                    <input type="text" className="form-control" id="name" name="name" value={book.name} onChange={handelInput} />
-                </div>
-                <div className="mb-3 mt-3">
-                    <label for="publishing_name" className="form-label">Publishing name</label>
-                    <input type="text" className="form-control" id="puname" name="puname" value={book.puname} onChange={handelInput} />
-                </div>
-                <div className="mb-3">
-                    <label for="byname" className="form-label">Writer</label>
-                    <input type="text" className="form-control" id="byname" name="byname" value={book.byname} onChange={handelInput} />
-                </div>
-                <div className="mb-3">
-                    <label for="price" className="form-label">Price</label>
-                    <input type="number" className="form-control" id="price" name="price" value={book.price} onChange={handelInput} />
-                </div>
-                <div className="mb-3">
-                    <label for="message" className="form-label">Rental status</label>
-                    <input type="text" className="form-control" id="message" name="message" value={book.message} onChange={handelInput} />
-                </div>
-                <button type="submit" className="btn btn-primary submit-btn">Submit</button>
-            </form>
-
         </div>
-    )
-}
+    );
+};
 
-export default CreateBook
+export default CreateBook;
