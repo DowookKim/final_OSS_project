@@ -115,8 +115,8 @@ const CreateBook = () => {
                             value={book.message}
                             onChange={handleInput}
                         >
-                            <option value="true">Available</option>
-                            <option value="false">Not Available</option>
+                            <option value="true">true</option>
+                            <option value="false">false</option>
                         </select>
                     </div>
 
