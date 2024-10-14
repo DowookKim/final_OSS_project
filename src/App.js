@@ -11,7 +11,7 @@ import BookList from "./components/Pages/Carosol"; // Ensure this is the correct
 import { useState } from "react";
 
 function App() {
-  const [cartItems, setCartItems] = useState([]); // State to store cart items
+  const [cartItems, setCartItems] = useState([]); // 장바구니 항목을 저장할 상태
 
   return (
     <div className="App">
@@ -26,8 +26,8 @@ function App() {
           <Route 
             path="/booklist" 
             element={<BookList cartItems={cartItems} setCartItems={setCartItems} />} 
-          /> {/* Pass cart state to BookList */}
-          <Route path="/cart" element={<Cart cartItems={cartItems} />} /> {/* Pass cart items */}
+          /> {/* Carosol에 장바구니 상태 전달 */}
+          <Route path="/cart" element={<Cart cartItems={cartItems} />} /> {/* 장바구니 항목 전달 */}
         </Routes>
       </header>
     </div>

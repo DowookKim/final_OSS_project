@@ -30,19 +30,18 @@ const BookList = ({ cartItems, setCartItems }) => {
     setSelectedBook(book);
     setIsPopupOpen(true);
   };
-
+  
   const handleCartClick = (book) => {
-    // Check if cartItems is an array and is defined
     if (Array.isArray(cartItems)) {
       const isInCart = cartItems.some((cartItem) => cartItem.title?._text === book.title?._text);
       if (isInCart) {
         console.log("This book is already in the cart.");
       } else {
         setCartItems((prevItems) => {
-          console.log("Adding to cart:", book); 
-          return [...prevItems, book]; // Add book to cart
+          console.log("Adding to cart:", book); // 책 추가 시 로그 출력
+          return [...prevItems, book]; // 장바구니에 책 추가
         });
-        setIsAlertOpen(true); // Show cart alert
+        setIsAlertOpen(true); // 장바구니 알림 표시
       }
     } else {
       console.error("cartItems is not an array or is undefined!");
