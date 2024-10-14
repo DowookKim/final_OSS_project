@@ -1,8 +1,5 @@
-import React from "react";
-import './Cart.css';
-
 const Cart = ({ cartItems }) => {
-  console.log("Cart items:", cartItems); // Debugging line
+  console.log("Cart items:", cartItems); // 장바구니 항목 확인 로그
 
   return (
     <div className="cart-container">
@@ -24,5 +21,3 @@ const Cart = ({ cartItems }) => {
     </div>
   );
 };
-
-export default Cart;
