@@ -7,6 +7,7 @@ import CartAlert from './CartAlert';
 import Footer from './Footer';
 
 const BookList = ({ cartItems, setCartItems }) => {
+  console.log("Received cartItems in BookList:", cartItems);
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
