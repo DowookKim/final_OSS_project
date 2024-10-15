@@ -8,11 +8,19 @@ import Header from "./components/Common/Header";
 import Home from "./components/Layout/Home";
 import Cart from "./components/Pages/Cart";
 import BookList from "./components/Pages/Carosol";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [cartItems, setCartItems] = useState([]); // Initialize cartItems as an empty array
+  const [cartItems, setCartItems] = useState(() => {
+    // LocalStorage에서 장바구니 항목을 불러와 초기화
+    const storedCart = localStorage.getItem("cartItems");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
+  useEffect(() => {
+    // cartItems가 변경될 때마다 LocalStorage에 저장
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   return (
     <div className="App">
