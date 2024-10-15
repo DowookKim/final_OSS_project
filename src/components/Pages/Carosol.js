@@ -6,9 +6,7 @@ import AddressForm from './AddressForm';
 import CartAlert from './CartAlert';
 import Footer from './Footer';
 
-function BookList({ cartItems = [], setCartItems = () => {} }) {//const BookList = ({ cartItems, setCartItems }) => {
-  console.log("Received cartItems in BookList:", cartItems); // cartItems 확인
-  console.log("Received setCartItems in BookList:", setCartItems); // setCartItems 확인
+function BookList({ cartItems = [], setCartItems = () => {} }) {
   const [books, setBooks] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -34,25 +32,29 @@ function BookList({ cartItems = [], setCartItems = () => {} }) {//const BookList
   };
 
   const handleCartClick = (book) => {
-    console.log("Cart Clicked:", book); // Log when cart is clicked
-    console.log("Current cart items:", cartItems); // Log current cart items
+    console.log("Cart Clicked:", book);
+    console.log("Current cart items:", cartItems);
     if (Array.isArray(cartItems)) {
       const isInCart = cartItems.some((cartItem) => cartItem.title?._text === book.title?._text);
       if (isInCart) {
         console.log("This book is already in the cart.");
       } else {
         setCartItems((prevItems) => {
-          console.log("Adding to cart:", book); // Log the book being added
-          return [...prevItems, book]; // Add book to cart
+          const updatedCart = [...prevItems, book];
+          console.log("Adding to cart:", updatedCart);
+          return updatedCart;
         });
-        setIsAlertOpen(true); // Show cart alert
+        setIsAlertOpen(true);
       }
     } else {
       console.error("cartItems is not an array or is undefined!");
     }
   };
-  
-  
+
+  // cartItems가 변경될 때마다 콘솔에 로그를 출력 (테스트용)
+  useEffect(() => {
+    console.log("Updated cartItems:", cartItems);
+  }, [cartItems]);
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
@@ -60,7 +62,7 @@ function BookList({ cartItems = [], setCartItems = () => {} }) {//const BookList
   };
 
   const handleAlertClose = () => {
-    setIsAlertOpen(false);  // Close cart alert
+    setIsAlertOpen(false);
   };
 
   const handleAddressSubmit = (data) => {
@@ -98,6 +100,6 @@ function BookList({ cartItems = [], setCartItems = () => {} }) {//const BookList
       <Footer />
     </div>
   );
-};
+}
 
 export default BookList;
