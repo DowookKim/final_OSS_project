@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./Book.css";
+
 const EditBook = () => {
-  const [book, setBook] = useState([]);
+  const [book, setBook] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
@@ -13,122 +14,88 @@ const EditBook = () => {
 
   useEffect(() => {
     getBook();
-  },[id]);
+  }, [id]);
 
   const getBook = () => {
     axios
-      .get(getBookApi.concat("/") + id)
-      .then((item) => {
-        setBook(item.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .get(`${getBookApi}/${id}`)
+      .then((res) => setBook(res.data))
+      .catch((err) => console.error(err));
   };
 
   const handelInput = (e) => {
-    e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
     setBook({ ...book, [name]: value });
   };
 
-  const handelSubmit = (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    fetch(getBookApi.concat("/") + id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(book),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setIsLoading(true);
+    try {
+      const response = await fetch(`${getBookApi}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(book),
+      });
+
+      if (response.ok) {
         navigate("/show-book");
-      })
-      .catch((error) => {
-        setError(error.message);
-        setIsLoading(false);
-      })
+      } else {
+        throw new Error("Update failed");
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="user-form">
       <div className="heading">
-      {isLoading && <Loader />}
-      {error && <p>Error: {error}</p>}
+        {isLoading && <Loader />}
+        {error && <p>Error: {error}</p>}
         <p>Edit Form</p>
       </div>
       <form onSubmit={handelSubmit}>
+        {/* 나머지 입력 필드들 */}
         <div className="mb-3">
-          <label for="name" className="form-label">
-            Name
+          <label htmlFor="iamge" className="form-label">
+            Image URL
           </label>
           <input
             type="text"
             className="form-control"
-            id="name"
-            name="name"
-            value={book.name}
-            onChange={handelInput}
-          />
-        </div>
-        <div className="mb-3 mt-3">
-          <label for="puname" className="form-label">
-            Publishing name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="puname"
-            name="puname"
-            value={book.puname}
+            id="iamge"
+            name="iamge"
+            value={book.iamge || ""}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3">
-          <label for="byname" className="form-label">
-            Writer
+          <label htmlFor="isbn" className="form-label">
+            ISBN
           </label>
           <input
             type="text"
             className="form-control"
-            id="byname"
-            name="byname"
-            value={book.byname}
+            id="isbn"
+            name="isbn"
+            value={book.isbn || ""}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3">
-          <label for="price" className="form-label">
-            Price
+          <label htmlFor="pudate" className="form-label">
+            Publish Date
           </label>
           <input
-            type="text"
+            type="date"
             className="form-control"
-            id="price"
-            name="price"
-            value={book.price}
-            onChange={handelInput}
-          />
-        </div>
-        <div className="mb-3">
-          <label for="message" className="form-label">
-            Rental status
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="message"
-            name="message"
-            value={book.message}
+            id="pudate"
+            name="pudate"
+            value={book.pudate || ""}
             onChange={handelInput}
           />
         </div>
@@ -139,4 +106,5 @@ const EditBook = () => {
     </div>
   );
 };
+
 export default EditBook;
