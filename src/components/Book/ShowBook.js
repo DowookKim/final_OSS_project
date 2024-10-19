@@ -90,11 +90,14 @@ const ShowBook = () => {
       <div className="card-grid">
         {filteredBooks?.map((item) => (
           <div className="book-card" key={item.id}>
+            <img src={item.iamge} alt={item.name} className="book-image" />
             <h3>{item.name}</h3>
             <p><strong>Author:</strong> {item.byname}</p>
             <p><strong>Publisher:</strong> {item.puname}</p>
             <p><strong>Price:</strong> ${item.price}</p>
-            <p><strong>Status:</strong> {String(item.message)}</p>
+            <p><strong>Status:</strong> {item.message ? "Available" : "Not Available"}</p>
+            <p><strong>ISBN:</strong> {item.isbn}</p>
+            <p><strong>Publication Date:</strong> {new Date(item.pudate).toLocaleDateString()}</p>
 
             <div className="card-actions">
               <Tooltip.Provider>
