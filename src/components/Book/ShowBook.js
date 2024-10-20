@@ -96,6 +96,10 @@ const ShowBook = () => {
             <p><strong>Price:</strong> ${item.price}</p>
             <p><strong>Status:</strong> {String(item.message)}</p>
 
+            <p><strong>Status:</strong> {item.message ? "Available" : "Not Available"}</p>
+            <p><strong>ISBN:</strong> {item.isbn}</p>
+            <p><strong>Publication Date:</strong> {new Date(item.pudate).toLocaleDateString()}</p>
+
             <div className="card-actions">
               <Tooltip.Provider>
                 <Tooltip.Root>

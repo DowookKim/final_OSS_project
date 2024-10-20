@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./Book.css";
+
 const EditBook = () => {
-  const [book, setBook] = useState([]);
+  const [book, setBook] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
@@ -13,11 +14,11 @@ const EditBook = () => {
 
   useEffect(() => {
     getBook();
-  },[id]);
+  }, [id]);
 
   const getBook = () => {
     axios
-      .get(getBookApi.concat("/") + id)
+      .get(`${getBookApi}/${id}`)
       .then((item) => {
         setBook(item.data);
       })
@@ -27,16 +28,15 @@ const EditBook = () => {
   };
 
   const handelInput = (e) => {
-    e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
     setBook({ ...book, [name]: value });
   };
 
   const handelSubmit = (e) => {
     e.preventDefault();
-
-    fetch(getBookApi.concat("/") + id, {
+    setIsLoading(true);
+    
+    fetch(`${getBookApi}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -50,25 +50,25 @@ const EditBook = () => {
         return response.json();
       })
       .then((data) => {
-        setIsLoading(true);
+        setIsLoading(false);
         navigate("/show-book");
       })
       .catch((error) => {
         setError(error.message);
         setIsLoading(false);
-      })
+      });
   };
 
   return (
     <div className="user-form">
       <div className="heading">
-      {isLoading && <Loader />}
-      {error && <p>Error: {error}</p>}
+        {isLoading && <Loader />}
+        {error && <p>Error: {error}</p>}
         <p>Edit Form</p>
       </div>
       <form onSubmit={handelSubmit}>
         <div className="mb-3">
-          <label for="name" className="form-label">
+          <label htmlFor="name" className="form-label">
             Name
           </label>
           <input
@@ -76,25 +76,25 @@ const EditBook = () => {
             className="form-control"
             id="name"
             name="name"
-            value={book.name}
+            value={book.name || ""}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3 mt-3">
-          <label for="puname" className="form-label">
-            Publishing name
+          <label htmlFor="puname" className="form-label">
+            Publishing Name
           </label>
           <input
             type="text"
             className="form-control"
             id="puname"
             name="puname"
-            value={book.puname}
+            value={book.puname || ""}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3">
-          <label for="byname" className="form-label">
+          <label htmlFor="byname" className="form-label">
             Writer
           </label>
           <input
@@ -102,12 +102,12 @@ const EditBook = () => {
             className="form-control"
             id="byname"
             name="byname"
-            value={book.byname}
+            value={book.byname || ""}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3">
-          <label for="price" className="form-label">
+          <label htmlFor="price" className="form-label">
             Price
           </label>
           <input
@@ -115,20 +115,48 @@ const EditBook = () => {
             className="form-control"
             id="price"
             name="price"
-            value={book.price}
+            value={book.price || ""}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3">
-          <label for="message" className="form-label">
-            Rental status
+          <label htmlFor="message" className="form-label">
+            Rental Status
+          </label>
+          <select
+            className="form-control"
+            id="message"
+            name="message"
+            value={book.message || ""}
+            onChange={handelInput}
+          >
+            <option value="true">Available</option>
+            <option value="false">Not Available</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="isbn" className="form-label">
+            ISBN
           </label>
           <input
             type="text"
             className="form-control"
-            id="message"
-            name="message"
-            value={book.message}
+            id="isbn"
+            name="isbn"
+            value={book.isbn || ""}
+            onChange={handelInput}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="pudate" className="form-label">
+            Publication Date
+          </label>
+          <input
+            type="date"
+            className="form-control"
+            id="pudate"
+            name="pudate"
+            value={book.pudate ? book.pudate.slice(0, 10) : ""}
             onChange={handelInput}
           />
         </div>
@@ -139,4 +167,5 @@ const EditBook = () => {
     </div>
   );
 };
+
 export default EditBook;

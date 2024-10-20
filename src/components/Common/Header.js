@@ -23,7 +23,7 @@ export default function Header() {
         <Typography variant="h6" component={RouterLink} to="/" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
           Book System
         </Typography>
-        <Button color="inherit" component={RouterLink} to="/">
+        <Button color="inherit" component={RouterLink} to="/booklist"> {/* Book List 버튼 이름을 Best seller로 변경 */}
           Best seller
         </Button>
         <Button color="inherit" component={RouterLink} to="/create-book">
@@ -31,6 +31,9 @@ export default function Header() {
         </Button>
         <Button color="inherit" component={RouterLink} to="/show-book">
           Show Book
+        </Button>
+        <Button color="inherit" component={RouterLink} to="/cart">
+          Cart
         </Button>
       </Toolbar>
 
@@ -44,7 +47,7 @@ export default function Header() {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem component={RouterLink} to="/" onClick={handleMenuClose}>
+        <MenuItem component={RouterLink} to="/booklist" onClick={handleMenuClose}> {/* Mobile Menu에서도 Book List를 Best seller로 표시 */}
           Best seller
         </MenuItem>
         <MenuItem component={RouterLink} to="/create-book" onClick={handleMenuClose}>
@@ -52,6 +55,9 @@ export default function Header() {
         </MenuItem>
         <MenuItem component={RouterLink} to="/show-book" onClick={handleMenuClose}>
           Show Book
+        </MenuItem>
+        <MenuItem component={RouterLink} to="/cart" onClick={handleMenuClose}>
+          Cart
         </MenuItem>
       </Menu>
     </AppBar>

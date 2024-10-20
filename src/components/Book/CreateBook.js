@@ -15,6 +15,11 @@ const CreateBook = () => {
         byname: "",
         price: "",
         message: true,
+
+        iamge: "", // 이미지 필드 추가
+        isbn: "",  // ISBN 필드 추가
+        pudate: "" // 발행일 필드 추가
+
     });
 
     const handleInput = (event) => {
@@ -39,6 +44,10 @@ const CreateBook = () => {
                     byname: "",
                     price: "",
                     message: true,
+
+                    iamge: "", // 초기화
+                    isbn: "",  // 초기화
+                    pudate: "" // 초기화
                 });
                 navigate('/show-book');
             } else {
@@ -70,7 +79,6 @@ const CreateBook = () => {
                             required
                         />
                     </div>
-
                     <div className="input-group">
                         <label htmlFor="puname">Publishing Name</label>
                         <input
@@ -82,7 +90,6 @@ const CreateBook = () => {
                             required
                         />
                     </div>
-
                     <div className="input-group">
                         <label htmlFor="byname">Writer</label>
                         <input
@@ -94,7 +101,6 @@ const CreateBook = () => {
                             required
                         />
                     </div>
-
                     <div className="input-group">
                         <label htmlFor="price">Price</label>
                         <input
@@ -106,7 +112,6 @@ const CreateBook = () => {
                             required
                         />
                     </div>
-
                     <div className="input-group">
                         <label htmlFor="message">Rental Status</label>
                         <select
@@ -118,6 +123,36 @@ const CreateBook = () => {
                             <option value="true">true</option>
                             <option value="false">false</option>
                         </select>
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="iamge">Image URL</label>
+                        <input
+                            type="text"
+                            id="iamge"
+                            name="iamge"
+                            value={book.iamge}
+                            onChange={handleInput}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="isbn">ISBN</label>
+                        <input
+                            type="text"
+                            id="isbn"
+                            name="isbn"
+                            value={book.isbn}
+                            onChange={handleInput}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="pudate">Publish Date</label>
+                        <input
+                            type="date"
+                            id="pudate"
+                            name="pudate"
+                            value={book.pudate}
+                            onChange={handleInput}
+                        />
                     </div>
 
                     <button type="submit" className="btn-submit">Submit</button>

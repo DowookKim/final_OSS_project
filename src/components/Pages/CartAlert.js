@@ -1,13 +1,14 @@
-// CartAlert.js
 import React from 'react';
-import './CartAlert.css'; // CSS 파일 추가
+import './CartAlert.css'; // CSS file
 
 const CartAlert = ({ message, onClose }) => {
   return (
     <div className="cart-alert-overlay">
       <div className="cart-alert-content">
         <p>{message}</p>
-        <button className="btn btn-primary" onClick={onClose}>닫기</button>
+        <button className="btn btn-primary cart-alert-button" onClick={onClose}>
+          Close
+        </button>
       </div>
     </div>
   );
